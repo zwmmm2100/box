@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import requests
 from bs4 import BeautifulSoup
 import codecs
@@ -11,18 +12,24 @@ headers={
             'Connection':'keep-alive'}
 xurl = 'https://sspai.com/api/v1/articles?offset=0&limit=2&type=recommend_to_home&sort=recommend_to_home_at&include_total=false'
 
-#根据链接收集所有的id加到列表里面
+#定义函数根据链接收集所有的id加到列表里面
 def num_lists(url):
+	#根据url返回requeson对象
 	driver = requests.get(url)
+	#用json方法把requson对象变成字典
 	tesss = driver.json()
+	#取出list列表
 	lists = tesss["list"]
 	urls = []
+	#创建放置id的列表
+	#用循环语句取出列表中的各个对象的id并添加到urls列表中
+	#并把这个urls列表返回函数	
 	for i in lists:
 		
 		urls.append(i['id'])
 		print(i['id'])
 	return urls
-#根据id列表拼凑real链接地址
+##根据id列表拼凑real链接地址并添加到real_url_lists列表中
 def url_lists(url_l):
 	real_url_lists = []
 	for i in url_l:
@@ -49,6 +56,7 @@ def down_html(lists):
 		s.close()
 
 		title_url = 'file:///C:/Users/Administrator/Desktop/html/' + str(lists.index(i)) + '.html'
+		#把文章标题和文章本地地址当做键值对共同添加到字典中
 		title_files[title] = title_url
 		print('[' + str(lists.index(i)+1) + '/200]' + title + ' is ok.')
 		time.sleep(10)
@@ -60,7 +68,7 @@ s = num_lists(xurl)
 lists = url_lists(s)
 oo = down_html(lists)
 print(oo)
-
+#拼凑成文章目录
 doc = '<head><meta charset="UTF-8"><style>a{text-decoration:none}</style></head>'
 for key in oo:
 	doc = doc + "<a href=%s><p>%s</p></a>" %(oo[key],key) + '\n'
