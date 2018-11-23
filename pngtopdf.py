@@ -10,3 +10,5 @@ for i in file_path_list:
 	ss.append(i)
 print(ss)
 ss.write('444.pdf')
+
+#合并两张图片为pdf

@@ -9,7 +9,7 @@ headers={
             'Accept-Encoding':'gzip, deflate',
             'Accept-Language':'zh-CN,zh;q=0.9',
             'Connection':'keep-alive'}
-xurl = 'https://sspai.com/api/v1/articles?offset=0&limit=200&type=recommend_to_home&sort=recommend_to_home_at&include_total=false'
+xurl = 'https://sspai.com/api/v1/articles?offset=0&limit=2&type=recommend_to_home&sort=recommend_to_home_at&include_total=false'
 
 #根据链接收集所有的id加到列表里面
 def num_lists(url):
@@ -37,7 +37,12 @@ def down_html(lists):
 		url_text = res.text
 		soup = BeautifulSoup(url_text,'lxml')
 		ssss= soup.find(class_="article-margin")
-		title = soup.find(class_="article-margin").find(class_="title").text
+		try:
+			title = soup.find(class_="article-margin").find(class_="title").text
+		except AttributeError as reason:
+			print("qusetion is: " + str(reason))
+			continue
+
 		html_name = 'C:/Users/Administrator/Desktop/html/' + str(lists.index(i)) + '.html'
 		s = codecs.open(html_name,'w',encoding='utf-8')
 		s.write(url_text)
@@ -56,7 +61,7 @@ lists = url_lists(s)
 oo = down_html(lists)
 print(oo)
 
-doc = '<head><meta charset="UTF-8"></head>'
+doc = '<head><meta charset="UTF-8"><style>a{text-decoration:none}</style></head>'
 for key in oo:
 	doc = doc + "<a href=%s><p>%s</p></a>" %(oo[key],key) + '\n'
 list_name = 'C:/Users/Administrator/Desktop/html/' + 'MULU.html'
