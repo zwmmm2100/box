@@ -3,4 +3,4 @@
 
 I should work more and more hardly.
 
-I want have much money.
+I want to have much money.
