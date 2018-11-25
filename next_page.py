@@ -1,5 +1,5 @@
 import sys   
-sys.setrecursionlimit(100000) #例如这里设置为十万  
+sys.setrecursionlimit(5000) #例如这里设置为十万  
 
 def xxx(x):
 	x = x + 1
